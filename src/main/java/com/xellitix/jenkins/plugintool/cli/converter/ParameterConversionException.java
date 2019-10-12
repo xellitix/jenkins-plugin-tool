@@ -1,7 +1,9 @@
 package com.xellitix.jenkins.plugintool.cli.converter;
 
+import com.beust.jcommander.Parameter;
+
 /**
- * {@link com.beust.jcommander.Parameter} conversion exception.
+ * {@link Parameter} conversion exception.
  *
  * @author Grayson Kuhns
  */

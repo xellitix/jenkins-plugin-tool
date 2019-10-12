@@ -5,7 +5,7 @@ import com.beust.jcommander.Parameters;
 import java.net.URI;
 
 /**
- * {@link Command} for fetch the plugins that currently installed on a remote Jenkins instance.
+ * {@link Command} for fetching the plugins that currently installed on a remote Jenkins instance.
  *
  * @author Grayson Kuhns
  */

@@ -27,6 +27,7 @@ public class JcommanderInterface implements CommandLineInterface {
    *
    * @param programName The program name.
    * @param commands The {@link Command}s.
+   * @param commandHandlers The {@link CommandHandler}s.
    * @param jCommanderBuilder The {@link JCommander.Builder}.
    * @param parameterConverterLocator The {@link ParameterConverterLocator}.
    */

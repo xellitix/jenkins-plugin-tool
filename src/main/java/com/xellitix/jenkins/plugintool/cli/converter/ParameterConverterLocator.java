@@ -41,13 +41,22 @@ public class ParameterConverterLocator implements IStringConverterInstanceFactor
    * @param forType the type class
    * @param optionName the name of the option used on the command line
    * @return a converter instance
+   * @throws ParameterConverterNotFoundException If a {@link ParameterConverter} could not be found.
    */
   @Override
   public IStringConverter<?> getConverterInstance(
       final Parameter parameter,
       final Class<?> forType,
-      final String optionName) {
+      final String optionName) throws ParameterConverterNotFoundException {
 
-    return converters.get(forType);
+    // Get the converter
+    final IStringConverter converter = converters.get(forType);
+
+    // Throw exception if a converter is not registered for the conversion type
+    if (converter == null) {
+      throw new ParameterConverterNotFoundException(forType);
+    }
+
+    return converter;
   }
 }

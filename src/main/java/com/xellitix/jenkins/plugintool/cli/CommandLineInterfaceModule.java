@@ -9,6 +9,7 @@ import com.xellitix.jenkins.plugintool.cli.command.Command;
 import com.xellitix.jenkins.plugintool.cli.command.CommandHandler;
 import com.xellitix.jenkins.plugintool.cli.command.FetchInstalledPluginsCommand;
 import com.xellitix.jenkins.plugintool.cli.command.FetchInstalledPluginsCommandHandler;
+import com.xellitix.jenkins.plugintool.cli.command.HelpCommand;
 import com.xellitix.jenkins.plugintool.cli.converter.ParameterConverter;
 import com.xellitix.jenkins.plugintool.cli.converter.UriConverter;
 
@@ -52,11 +53,13 @@ public class CommandLineInterfaceModule extends AbstractModule {
     // Commands
     Multibinder<Command> commandMultibinder
         = Multibinder.newSetBinder(binder(), Command.class);
+    commandMultibinder.addBinding().to(HelpCommand.class);
     commandMultibinder.addBinding().to(FetchInstalledPluginsCommand.class);
 
     // Command handlers
     Multibinder<CommandHandler<? extends Command>> commandHandlerMultibinder
-        = Multibinder.newSetBinder(binder(), new TypeLiteral<CommandHandler<? extends Command>>() {});
+        = Multibinder.newSetBinder(binder(), new TypeLiteral<CommandHandler<? extends Command>>() {
+    });
     commandHandlerMultibinder.addBinding().to(FetchInstalledPluginsCommandHandler.class);
 
     // Command line interface

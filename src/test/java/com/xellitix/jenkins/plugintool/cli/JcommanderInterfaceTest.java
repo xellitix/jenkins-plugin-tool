@@ -31,6 +31,7 @@ public class JcommanderInterfaceTest {
 
   private static final String COMMAND_ONE_NAME = "commandOne";
   private static final String COMMAND_TWO_NAME = "commandTwo";
+  private static final String COMMAND_HELP_NAME = "help";
 
   private static final String MSG_HANDLER_NOT_FOUND =
       "A CommandHandler was not found for Command type: " +
@@ -88,6 +89,20 @@ public class JcommanderInterfaceTest {
 
     // Execute without any arguments
     jCommanderInterface.execute(new String[0]);
+
+    // Verify that usage information is displayed
+    verify(jCommander).usage();
+  }
+
+  @Test
+  public void execute__DisplaysUsageInformation__WhenHelpCommandIsSpecified__Test() {
+    // Specify help command
+    doReturn(COMMAND_HELP_NAME)
+        .when(jCommander)
+        .getParsedCommand();
+
+    // Execute help command
+    jCommanderInterface.execute(new String[] { COMMAND_HELP_NAME });
 
     // Verify that usage information is displayed
     verify(jCommander).usage();

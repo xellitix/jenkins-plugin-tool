@@ -35,12 +35,12 @@ public class ParameterConverterLocator implements IStringConverterInstanceFactor
   }
 
   /**
-   * Obtain a converter instance for parsing {@code parameter} as type {@code forType}
+   * Obtain a converter instance for parsing {@code parameter} as type {@code forType}.
    *
-   * @param parameter the parameter to parse
-   * @param forType the type class
-   * @param optionName the name of the option used on the command line
-   * @return a converter instance
+   * @param parameter the parameter to parse.
+   * @param forType the type class.
+   * @param optionName the name of the option used on the command line.
+   * @return a converter instance.
    * @throws ParameterConverterNotFoundException If a {@link ParameterConverter} could not be found.
    */
   @Override

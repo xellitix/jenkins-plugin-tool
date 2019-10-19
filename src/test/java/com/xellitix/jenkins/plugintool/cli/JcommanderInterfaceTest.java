@@ -42,30 +42,30 @@ public class JcommanderInterfaceTest {
   public ExpectedException thrown = ExpectedException.none();
 
   // Fixtures
-  private JCommander jCommander;
-  private JCommander.Builder jCommanderBuilder;
+  private JCommander jcommander;
+  private JCommander.Builder jcommanderBuilder;
 
   private CommandOne commandOne;
   private CommandTwo commandTwo;
   private CommandOneHandler commandOneHandler;
 
   private ParameterConverterLocator parameterConverterLocator;
-  private JcommanderInterface jCommanderInterface;
+  private JcommanderInterface jcommanderInterface;
 
   @Test
   public void programNameIsSet__Test() {
-    verify(jCommanderBuilder).programName(eq(PROGRAM_NAME));
+    verify(jcommanderBuilder).programName(eq(PROGRAM_NAME));
   }
 
   @Test
   public void parameterConverterLocatorIsRegistered__Test() {
-    verify(jCommanderBuilder).addConverterInstanceFactory(parameterConverterLocator);
+    verify(jcommanderBuilder).addConverterInstanceFactory(parameterConverterLocator);
   }
 
   @Test
   public void commandsAreRegistered__Test() {
-    verify(jCommanderBuilder).addCommand(eq(COMMAND_ONE_NAME), eq(commandOne));
-    verify(jCommanderBuilder).addCommand(eq(COMMAND_TWO_NAME), eq(commandTwo));
+    verify(jcommanderBuilder).addCommand(eq(COMMAND_ONE_NAME), eq(commandOne));
+    verify(jcommanderBuilder).addCommand(eq(COMMAND_TWO_NAME), eq(commandTwo));
   }
 
   @Test
@@ -74,63 +74,63 @@ public class JcommanderInterfaceTest {
     final String[] args = { "help", "--test" };
 
     // Execute the arguments
-    jCommanderInterface.execute(args);
+    jcommanderInterface.execute(args);
 
     // Verify that the arguments were passed to JCommander
-    verify(jCommander).parse(eq("help"), eq("--test"));
+    verify(jcommander).parse(eq("help"), eq("--test"));
   }
 
   @Test
   public void execute__DisplaysUsageInformation__WhenCommandIsNotSpecified__Test() {
     // Do not specify a command
     doReturn(null)
-        .when(jCommander)
+        .when(jcommander)
         .getParsedCommand();
 
     // Execute without any arguments
-    jCommanderInterface.execute(new String[0]);
+    jcommanderInterface.execute(new String[0]);
 
     // Verify that usage information is displayed
-    verify(jCommander).usage();
+    verify(jcommander).usage();
   }
 
   @Test
   public void execute__DisplaysUsageInformation__WhenHelpCommandIsSpecified__Test() {
     // Specify help command
     doReturn(COMMAND_HELP_NAME)
-        .when(jCommander)
+        .when(jcommander)
         .getParsedCommand();
 
     // Execute help command
-    jCommanderInterface.execute(new String[] { COMMAND_HELP_NAME });
+    jcommanderInterface.execute(new String[] { COMMAND_HELP_NAME });
 
     // Verify that usage information is displayed
-    verify(jCommander).usage();
+    verify(jcommander).usage();
   }
 
   @Test
   public void execute__DoesNotDisplayUsageInformation__WhenValidCommandIsSpecified__Test() {
     // Specify command one
     doReturn(COMMAND_ONE_NAME)
-        .when(jCommander)
+        .when(jcommander)
         .getParsedCommand();
 
     // Execute command one
-    jCommanderInterface.execute(new String[] { COMMAND_ONE_NAME });
+    jcommanderInterface.execute(new String[] { COMMAND_ONE_NAME });
 
     // Verify that usage information is not displayed
-    verify(jCommander, never()).usage();
+    verify(jcommander, never()).usage();
   }
 
   @Test
   public void execute__CallsTheHandlerForValidCommands__Test() {
     // Specify command one
     doReturn(COMMAND_ONE_NAME)
-        .when(jCommander)
+        .when(jcommander)
         .getParsedCommand();
 
     // Execute command one
-    jCommanderInterface.execute(new String[] { COMMAND_ONE_NAME });
+    jcommanderInterface.execute(new String[] { COMMAND_ONE_NAME });
 
     // Verify that the command handler was called
     verify(commandOneHandler).handle(eq(commandOne));
@@ -144,20 +144,20 @@ public class JcommanderInterfaceTest {
 
     // Specify command two
     doReturn(COMMAND_TWO_NAME)
-        .when(jCommander)
+        .when(jcommander)
         .getParsedCommand();
 
     // Execute command two
-    jCommanderInterface.execute(new String[] { COMMAND_TWO_NAME });
+    jcommanderInterface.execute(new String[] { COMMAND_TWO_NAME });
   }
 
   @Before
   public void setUp() {
     // JCommander mocking
-    jCommander = mock(JCommander.class);
-    jCommanderBuilder = mock(JCommander.Builder.class);
-    doReturn(jCommander)
-        .when(jCommanderBuilder)
+    jcommander = mock(JCommander.class);
+    jcommanderBuilder = mock(JCommander.Builder.class);
+    doReturn(jcommander)
+        .when(jcommanderBuilder)
         .build();
 
     // Create commands
@@ -178,8 +178,8 @@ public class JcommanderInterfaceTest {
     parameterConverterLocator = mock(ParameterConverterLocator.class);
 
     // Create the JCommander interface
-    jCommanderInterface = new JcommanderInterface(
-        PROGRAM_NAME, commands, commandHandlers, jCommanderBuilder, parameterConverterLocator);
+    jcommanderInterface = new JcommanderInterface(
+        PROGRAM_NAME, commands, commandHandlers, jcommanderBuilder, parameterConverterLocator);
   }
 
   // Test types

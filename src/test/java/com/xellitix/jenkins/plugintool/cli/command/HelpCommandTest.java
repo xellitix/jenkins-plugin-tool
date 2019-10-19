@@ -5,25 +5,30 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * {@link HelpCommand} test case.
+ *
+ * @author Garrett Ewens
+ */
 public class HelpCommandTest {
 
-    // Constants
-    private static final String NAME = "help";
+  // Constants
+  private static final String NAME = "help";
 
-    // Fixtures
-    private HelpCommand command;
+  // Fixtures
+  private HelpCommand command;
 
-    @Test
-    public void getName__Test() {
-        assertThat(command
-                .getName())
-                .isNotNull()
-                .isEqualTo(NAME);
-    }
+  @Test
+  public void getName__Test() {
+    assertThat(command
+        .getName())
+        .isNotNull()
+        .isEqualTo(NAME);
+  }
 
-    @Before
-    public void setup() {
-        // Create command
-        command = new HelpCommand();
-    }
+  @Before
+  public void setup() {
+    // Create command
+    command = new HelpCommand();
+  }
 }

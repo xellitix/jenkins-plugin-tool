@@ -57,9 +57,12 @@ public class CommandLineInterfaceModule extends AbstractModule {
     commandMultibinder.addBinding().to(FetchInstalledPluginsCommand.class);
 
     // Command handlers
+    TypeLiteral<CommandHandler<? extends Command>> commandHandlerType =
+        new TypeLiteral<CommandHandler<? extends Command>>() {
+        };
+
     Multibinder<CommandHandler<? extends Command>> commandHandlerMultibinder
-        = Multibinder.newSetBinder(binder(), new TypeLiteral<CommandHandler<? extends Command>>() {
-    });
+        = Multibinder.newSetBinder(binder(), commandHandlerType);
     commandHandlerMultibinder.addBinding().to(FetchInstalledPluginsCommandHandler.class);
 
     // Command line interface

@@ -20,7 +20,7 @@ public class JcommanderInterface implements CommandLineInterface {
   // Properties
   private final Set<Command> commands;
   private final Set<CommandHandler<? extends Command>> commandHandlers;
-  private final JCommander jCommander;
+  private final JCommander jcommander;
 
   /**
    * Constructor.
@@ -28,7 +28,7 @@ public class JcommanderInterface implements CommandLineInterface {
    * @param programName The program name.
    * @param commands The {@link Command}s.
    * @param commandHandlers The {@link CommandHandler}s.
-   * @param jCommanderBuilder The {@link JCommander.Builder}.
+   * @param jcommanderBuilder The {@link JCommander.Builder}.
    * @param parameterConverterLocator The {@link ParameterConverterLocator}.
    */
   @Inject
@@ -36,24 +36,24 @@ public class JcommanderInterface implements CommandLineInterface {
       @Named("programName") final String programName,
       final Set<Command> commands,
       final Set<CommandHandler<? extends Command>> commandHandlers,
-      final JCommander.Builder jCommanderBuilder,
+      final JCommander.Builder jcommanderBuilder,
       final ParameterConverterLocator parameterConverterLocator) {
 
     this.commands = commands;
     this.commandHandlers = commandHandlers;
 
     // Register the program name
-    jCommanderBuilder.programName(programName);
+    jcommanderBuilder.programName(programName);
 
     // Register the parameter converters
-    jCommanderBuilder.addConverterInstanceFactory(parameterConverterLocator);
+    jcommanderBuilder.addConverterInstanceFactory(parameterConverterLocator);
 
     // Register the commands
     commands.forEach(command ->
-        jCommanderBuilder.addCommand(command.getName(), command));
+        jcommanderBuilder.addCommand(command.getName(), command));
 
     // Build JCommander
-    jCommander = jCommanderBuilder.build();
+    jcommander = jcommanderBuilder.build();
   }
 
   /**
@@ -64,17 +64,17 @@ public class JcommanderInterface implements CommandLineInterface {
   @Override
   public void execute(final String[] args) {
     // Parse the arguments
-    jCommander.parse(args);
+    jcommander.parse(args);
 
     // Get the name of the command specified by the input arguments
-    final String specifiedCommand = jCommander.getParsedCommand();
+    final String specifiedCommand = jcommander.getParsedCommand();
 
     // Get the command
     final Optional<Command> command = getCommand(specifiedCommand);
 
     // Show usage information if no command was specified
     if (!command.isPresent() || command.get().getName().equals("help")) {
-      jCommander.usage();
+      jcommander.usage();
       return;
     }
 

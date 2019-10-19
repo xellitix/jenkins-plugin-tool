@@ -14,7 +14,8 @@ public class CommandHandlerNotFoundException extends RuntimeException {
   /**
    * Constructor.
    *
-   * @param commandType The {@link Command} type for which a {@link CommandHandler} could not be found.
+   * @param commandType The {@link Command} type for which a
+   *     {@link CommandHandler} could not be found.
    */
   public CommandHandlerNotFoundException(final Class<? extends Command> commandType) {
     super(String.format(MSG_TEMPLATE, commandType.getName()));

@@ -16,7 +16,10 @@ public class FetchInstalledPluginsCommand implements Command {
   private static final String NAME = "fetch-installed-plugins";
 
   // Properties
-  @Parameter(names = "--jenkins-endpoint", description = "The Jenkins endpoint URI", required = true)
+  @Parameter(
+      names = "--jenkins-endpoint",
+      description = "The Jenkins endpoint URI",
+      required = true)
   private URI jenkinsEndpoint;
 
   /**

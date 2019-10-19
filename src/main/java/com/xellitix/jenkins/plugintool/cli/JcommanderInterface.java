@@ -86,6 +86,10 @@ public class JcommanderInterface implements CommandLineInterface {
   }
 
   private Optional<Command> getCommand(final String commandName) {
+    if (commandName == null) {
+      return Optional.empty();
+    }
+
     return commands
         .stream()
         .filter(command -> command

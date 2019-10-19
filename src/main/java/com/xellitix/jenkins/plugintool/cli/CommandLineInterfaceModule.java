@@ -5,10 +5,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.name.Names;
-import com.xellitix.jenkins.plugintool.cli.command.Command;
-import com.xellitix.jenkins.plugintool.cli.command.CommandHandler;
-import com.xellitix.jenkins.plugintool.cli.command.FetchInstalledPluginsCommand;
-import com.xellitix.jenkins.plugintool.cli.command.FetchInstalledPluginsCommandHandler;
+import com.xellitix.jenkins.plugintool.cli.command.*;
 import com.xellitix.jenkins.plugintool.cli.converter.ParameterConverter;
 import com.xellitix.jenkins.plugintool.cli.converter.UriConverter;
 
@@ -52,6 +49,7 @@ public class CommandLineInterfaceModule extends AbstractModule {
     // Commands
     Multibinder<Command> commandMultibinder
         = Multibinder.newSetBinder(binder(), Command.class);
+    commandMultibinder.addBinding().to(HelpCommand.class);
     commandMultibinder.addBinding().to(FetchInstalledPluginsCommand.class);
 
     // Command handlers

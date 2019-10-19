@@ -73,7 +73,7 @@ public class JcommanderInterface implements CommandLineInterface {
     final Optional<Command> command = getCommand(specifiedCommand);
 
     // Show usage information if no command was specified
-    if (!command.isPresent()) {
+    if (!command.isPresent() || command.get().getName().equals("help")) {
       jCommander.usage();
       return;
     }

@@ -9,7 +9,7 @@ import java.net.URI;
  *
  * @author Grayson Kuhns
  */
-@Parameters(commandDescription = "Fetch plugins installed on a Jenkins instance")
+  @Parameters(commandDescription = "Fetch plugins installed on a Jenkins instance")
 public class FetchInstalledPluginsCommand implements Command {
 
   // Constants

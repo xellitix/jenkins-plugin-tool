@@ -12,8 +12,8 @@ public interface PluginFactory {
   /**
    * Creates a {@link Plugin}.
    *
-   * @param name
-   * @param version
+   * @param name The name.
+   * @param version The version.
    * @return {@link Plugin}
    */
   Plugin create(

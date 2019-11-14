@@ -17,7 +17,7 @@ public class PluginModule extends AbstractModule {
   protected void configure() {
     // Plugin factory
     install(new FactoryModuleBuilder()
-      .implement(Plugin.class, DefaultPlugin.class)
-      .build(PluginFactory.class));
+        .implement(Plugin.class, DefaultPlugin.class)
+        .build(PluginFactory.class));
   }
 }

@@ -1,10 +1,13 @@
 package com.xellitix.jenkins.plugintool.plugin;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 /**
  * Plugin interface.
  *
  * @author Garrett Ewens
  */
+@JsonPropertyOrder({ "name", "version" })
 public interface Plugin {
 
   /**

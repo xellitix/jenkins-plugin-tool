@@ -17,11 +17,11 @@ public class DefaultPluginTest {
   private static final String VERSION = "version";
 
   // Fixtures
-  private DefaultPlugin defaultPlugin;
+  private DefaultPlugin plugin;
 
   @Test
   public void getName__Test() {
-    assertThat(defaultPlugin
+    assertThat(plugin
         .getName())
         .isNotNull()
         .isEqualTo(NAME);
@@ -29,7 +29,7 @@ public class DefaultPluginTest {
 
   @Test
   public void getVersion__Test() {
-    assertThat(defaultPlugin
+    assertThat(plugin
         .getVersion())
         .isNotNull()
         .isEqualTo(VERSION);
@@ -37,6 +37,6 @@ public class DefaultPluginTest {
 
   @Before
   public void setup() {
-    defaultPlugin = new DefaultPlugin("name", "version");
+    plugin = new DefaultPlugin("name", "version");
   }
 }

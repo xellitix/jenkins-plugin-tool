@@ -48,6 +48,11 @@ public class FetchInstalledPluginsCommand implements Command {
     return NAME;
   }
 
+  /**
+   * Gets the API token.
+   *
+   * @return The API token.
+   */
   public Optional<String> getApiToken() {
     return Optional.ofNullable(apiToken);
   }

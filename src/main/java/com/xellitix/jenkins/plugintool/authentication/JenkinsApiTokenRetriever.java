@@ -14,6 +14,7 @@ public interface JenkinsApiTokenRetriever {
    *
    * @param command The {@link FetchInstalledPluginsCommand}.
    * @return The API token.
+   * @throws JenkinsApiTokenNotFoundException If an API token cannot be found.
    */
-  String getApiToken(FetchInstalledPluginsCommand command);
+  String getApiToken(FetchInstalledPluginsCommand command) throws JenkinsApiTokenNotFoundException;
 }

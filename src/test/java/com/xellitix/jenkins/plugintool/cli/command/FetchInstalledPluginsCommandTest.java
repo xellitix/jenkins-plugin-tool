@@ -43,8 +43,8 @@ public class FetchInstalledPluginsCommandTest {
 
   @Test
   public void getApiToken__Test() {
-    Optional<String> var = command.getApiToken();
-    assertThat(var)
+    assertThat(command
+        .getApiToken())
         .isPresent()
         .get()
         .isEqualTo(API_TOKEN);

@@ -7,13 +7,13 @@ package com.xellitix.jenkins.plugintool.authentication;
  */
 public class JenkinsApiTokenNotFoundException extends RuntimeException {
   // Constants
-  private static final String MSG_TEMPLATE =
+  private static final String MSG =
       "An API Token was not found";
 
   /**
    * Constructor.
    */
   public JenkinsApiTokenNotFoundException() {
-    super(MSG_TEMPLATE);
+    super(MSG);
   }
 }

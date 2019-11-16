@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Field;
 import java.net.URI;
+import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +19,7 @@ public class FetchInstalledPluginsCommandTest {
   // Constants
   private static final String NAME = "fetch-installed-plugins";
   private static final String JENKINS_ENDPOINT = "https://jenkins.local";
+  private static final String API_TOKEN = "api-token";
 
   // Fixtures
   private URI jenkinsEndpoint;
@@ -38,6 +41,15 @@ public class FetchInstalledPluginsCommandTest {
         .isEqualTo(NAME);
   }
 
+  @Test
+  public void getApiToken__Test() {
+    assertThat(command
+        .getApiToken())
+        .isPresent()
+        .get()
+        .isEqualTo(API_TOKEN);
+  }
+
   @Before
   public void setUp() throws Exception {
     // Create the Jenkins endpoint URI
@@ -47,10 +59,11 @@ public class FetchInstalledPluginsCommandTest {
     command = new FetchInstalledPluginsCommand();
 
     // Set the jenkins endpoint (this will be done by jCommander in production)
-    setPrivateUri(command, "jenkinsEndpoint", jenkinsEndpoint);
+    setPrivateProperty(command, "jenkinsEndpoint", jenkinsEndpoint);
+    setPrivateProperty(command, "apiToken", API_TOKEN);
   }
 
-  private void setPrivateUri(final Object obj, final String field, final URI uri) throws Exception {
+  private void setPrivateProperty(final Object obj, final String field, final Object value) throws Exception {
     // Get the field
     final Field uriField = obj.getClass().getDeclaredField(field);
 
@@ -58,6 +71,6 @@ public class FetchInstalledPluginsCommandTest {
     uriField.setAccessible(true);
 
     // Set the field value
-    uriField.set(obj, uri);
+    uriField.set(obj, value);
   }
 }

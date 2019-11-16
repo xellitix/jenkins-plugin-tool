@@ -3,6 +3,7 @@ package com.xellitix.jenkins.plugintool.cli.command;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import java.net.URI;
+import java.util.Optional;
 
 /**
  * {@link Command} for fetching the plugins that currently installed on a remote Jenkins instance.
@@ -22,6 +23,12 @@ public class FetchInstalledPluginsCommand implements Command {
       required = true)
   private URI jenkinsEndpoint;
 
+  // Properties
+  @Parameter(
+      names = "--api-token",
+      description = "The API token used to authenticate to jenkins")
+  private String apiToken;
+
   /**
    * Gets the Jenkins endpoint.
    *
@@ -39,5 +46,14 @@ public class FetchInstalledPluginsCommand implements Command {
   @Override
   public String getName() {
     return NAME;
+  }
+
+  /**
+   * Gets the API token.
+   *
+   * @return The API token.
+   */
+  public Optional<String> getApiToken() {
+    return Optional.ofNullable(apiToken);
   }
 }

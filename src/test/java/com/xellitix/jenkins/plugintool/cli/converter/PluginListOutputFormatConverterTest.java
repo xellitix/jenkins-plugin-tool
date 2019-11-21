@@ -36,7 +36,7 @@ public class PluginListOutputFormatConverterTest {
   }
 
   @Test
-  public void convert__ReturnsEquivalentPluginList__WhenInputIsValid__Test() {
+  public void convert__ParsesTheOutputFormat__WhenInputIsValid__Test() {
      assertThat(formatConverter
         .convert(FORMAT_VALID))
         .isNotNull()

@@ -23,12 +23,13 @@ public class PluginListOutputFormatConverterTest {
   // Rules
   @Rule
   public ExpectedException thrown = ExpectedException.none();
+
   // Fixtures
-  private PluginListOutputFormatConverter pluginList;
+  private PluginListOutputFormatConverter formatConverter;
 
   @Test
   public void getConversionType__Test() {
-    assertThat(pluginList
+    assertThat(formatConverter
         .getConversionType())
         .isNotNull()
         .isEqualTo(PluginListOutputFormat.class);
@@ -36,12 +37,10 @@ public class PluginListOutputFormatConverterTest {
 
   @Test
   public void convert__ReturnsEquivalentPluginList__WhenInputIsValid__Test() {
-    final PluginListOutputFormat format = pluginList.convert(FORMAT_VALID);
-
-    assertThat(format).isNotNull();
-    assertThat(format
-        .toString())
-        .isEqualTo(FORMAT_VALID);
+     assertThat(formatConverter
+        .convert(FORMAT_VALID))
+        .isNotNull()
+        .isEqualTo(PluginListOutputFormat.JSON);
   }
 
   @Test
@@ -51,11 +50,11 @@ public class PluginListOutputFormatConverterTest {
     thrown.expectCause(IsInstanceOf.instanceOf(IllegalArgumentException.class));
 
     // Attempt to convert an invalid URI
-    pluginList.convert(FORMAT_INVALID);
+    formatConverter.convert(FORMAT_INVALID);
   }
 
   @Before
   public void setUp() {
-    pluginList = new PluginListOutputFormatConverter();
+    formatConverter = new PluginListOutputFormatConverter();
   }
 }

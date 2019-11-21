@@ -8,7 +8,7 @@ import java.util.Arrays;
  * {@link PluginListOutputFormat} converter.
  *
  * <p>
- * Used for converting output data to specified format.
+ * used to parse a {@link PluginListOutputFormat} specified by the user.
  * </p>
  *
  * @author Garrett Ewens
@@ -31,7 +31,8 @@ public class PluginListOutputFormatConverter implements ParameterConverter<Plugi
             .toLowerCase()
             .equals(format.toLowerCase()))
         .findFirst()
-        .orElseThrow(() -> new ParameterConversionException(new IllegalArgumentException()));
+        .orElseThrow(() ->
+            new ParameterConversionException(new IllegalArgumentException("Invalid output format given.")));
   }
 
   /**

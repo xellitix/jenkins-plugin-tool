@@ -4,7 +4,7 @@ import com.cdancy.jenkins.rest.JenkinsClient;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.xellitix.jenkins.plugintool.api.auth.JenkinsApiUser;
+import com.xellitix.jenkins.plugintool.authentication.JenkinsApiUser;
 import java.net.URI;
 
 /**

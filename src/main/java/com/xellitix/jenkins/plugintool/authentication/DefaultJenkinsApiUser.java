@@ -1,4 +1,4 @@
-package com.xellitix.jenkins.plugintool.api.auth;
+package com.xellitix.jenkins.plugintool.authentication;
 
 import com.google.inject.assistedinject.Assisted;
 import javax.inject.Inject;

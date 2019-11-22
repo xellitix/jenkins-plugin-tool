@@ -10,6 +10,7 @@ import com.xellitix.jenkins.plugintool.cli.command.CommandHandler;
 import com.xellitix.jenkins.plugintool.cli.command.FetchInstalledPluginsCommand;
 import com.xellitix.jenkins.plugintool.cli.command.FetchInstalledPluginsCommandHandler;
 import com.xellitix.jenkins.plugintool.cli.command.HelpCommand;
+import com.xellitix.jenkins.plugintool.cli.converter.JenkinsApiUserConverter;
 import com.xellitix.jenkins.plugintool.cli.converter.ParameterConverter;
 import com.xellitix.jenkins.plugintool.cli.converter.PluginListOutputFormatConverter;
 import com.xellitix.jenkins.plugintool.cli.converter.UriConverter;
@@ -50,8 +51,10 @@ public class CommandLineInterfaceModule extends AbstractModule {
     // Converters
     Multibinder<ParameterConverter> converterMultibinder
         = Multibinder.newSetBinder(binder(), ParameterConverter.class);
+
     converterMultibinder.addBinding().to(UriConverter.class);
     converterMultibinder.addBinding().to(PluginListOutputFormatConverter.class);
+    converterMultibinder.addBinding().to(JenkinsApiUserConverter.class);
 
     // Commands
     Multibinder<Command> commandMultibinder

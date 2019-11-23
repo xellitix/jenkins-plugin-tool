@@ -42,10 +42,7 @@ public class JenkinsPluginListOutWriterTest {
   private JenkinsPluginListOutputWriter outputWriter;
 
   @Test
-  public void write__GeneratesCorrectPluginJenkins__Test() {
-    // Create the output writer
-    outputWriter = new JenkinsPluginListOutputWriter();
-
+  public void write__GeneratesCorrectOutput__Test() {
     // Write the output
     outputWriter.write(plugins, outputStream);
     String output = new String(outputStreamData.toByteArray());
@@ -59,6 +56,9 @@ public class JenkinsPluginListOutWriterTest {
     // Create the output stream
     outputStreamData = new ByteArrayOutputStream();
     outputStream = new PrintStream(outputStreamData);
+
+    // Create the output writer
+    outputWriter = new JenkinsPluginListOutputWriter();
 
     // Create the plugins
     Plugin pluginOne = new Plugin() {

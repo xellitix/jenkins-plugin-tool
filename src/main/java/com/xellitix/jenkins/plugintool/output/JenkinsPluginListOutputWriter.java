@@ -12,6 +12,7 @@ import java.util.List;
  * @author Garrett Ewens
  */
 public class JenkinsPluginListOutputWriter implements PluginListOutputWriter {
+
   /**
    * Gets the {@link PluginListOutputFormat}.
    *
@@ -30,8 +31,8 @@ public class JenkinsPluginListOutputWriter implements PluginListOutputWriter {
    */
   @Override
   public void write(final List<Plugin> plugins, final PrintStream output) {
-    plugins.forEach((value) -> {
-      output.println(value.getName() + ":" + value.getVersion());
-    });
+    plugins.forEach(value ->
+      output.println(value.getName() + ":" + value.getVersion())
+    );
   }
 }

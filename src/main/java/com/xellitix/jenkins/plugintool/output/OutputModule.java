@@ -21,6 +21,10 @@ public class OutputModule extends AbstractModule {
 
     pluginListOutputWriterMultibinder
         .addBinding()
+        .to(JenkinsPluginListOutputWriter.class);
+
+    pluginListOutputWriterMultibinder
+        .addBinding()
         .to(JsonPluginListOutputWriter.class);
 
     // Plugin list output writer locator

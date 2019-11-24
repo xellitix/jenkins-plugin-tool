@@ -19,6 +19,7 @@ public class PluginListOutputFormatConverterTest {
   // Constants
   private static final String FORMAT_VALID = "JSON";
   private static final String FORMAT_INVALID = "?%$^lklksdff";
+  private static final String INVALID_FORMAT_MSG = "Invalid output format given";
 
   // Rules
   @Rule
@@ -47,7 +48,7 @@ public class PluginListOutputFormatConverterTest {
   public void convert__ThrowsException__WhenInputIsInvalid__Test() {
     // Describe the exception to expect
     thrown.expect(ParameterConversionException.class);
-    thrown.expectCause(IsInstanceOf.instanceOf(IllegalArgumentException.class));
+    thrown.expectMessage(INVALID_FORMAT_MSG);
 
     // Attempt to convert an invalid URI
     formatConverter.convert(FORMAT_INVALID);

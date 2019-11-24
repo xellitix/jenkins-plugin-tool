@@ -1,4 +1,4 @@
-package com.xellitix.jenkins.plugintool.api.auth;
+package com.xellitix.jenkins.plugintool.authentication;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

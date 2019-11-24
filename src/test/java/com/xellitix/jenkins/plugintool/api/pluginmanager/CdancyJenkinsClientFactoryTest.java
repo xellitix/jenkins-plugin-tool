@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 
 import com.cdancy.jenkins.rest.JenkinsClient;
 import com.google.inject.Provider;
-import com.xellitix.jenkins.plugintool.api.auth.JenkinsApiUser;
+import com.xellitix.jenkins.plugintool.authentication.JenkinsApiUser;
 import java.net.URI;
 import org.junit.Before;
 import org.junit.Test;

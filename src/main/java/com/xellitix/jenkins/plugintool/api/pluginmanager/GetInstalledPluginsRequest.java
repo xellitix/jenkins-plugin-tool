@@ -1,6 +1,6 @@
 package com.xellitix.jenkins.plugintool.api.pluginmanager;
 
-import com.xellitix.jenkins.plugintool.api.auth.JenkinsApiUser;
+import com.xellitix.jenkins.plugintool.authentication.JenkinsApiUser;
 import java.net.URI;
 
 /**

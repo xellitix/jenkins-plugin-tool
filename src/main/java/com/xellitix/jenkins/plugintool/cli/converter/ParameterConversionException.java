@@ -17,4 +17,13 @@ public class ParameterConversionException extends RuntimeException {
   public ParameterConversionException(final Throwable cause) {
     super(cause);
   }
+
+  /**
+   * Constructor.
+   *
+   * @param reason The reason.
+   */
+  public ParameterConversionException(final String reason) {
+    super(reason);
+  }
 }

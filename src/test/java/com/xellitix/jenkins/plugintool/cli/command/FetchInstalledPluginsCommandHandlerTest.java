@@ -1,7 +1,9 @@
 package com.xellitix.jenkins.plugintool.cli.command;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
+import com.xellitix.jenkins.plugintool.authentication.JenkinsApiUserRetriever;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +15,7 @@ import org.junit.Test;
 public class FetchInstalledPluginsCommandHandlerTest {
 
   // Fixtures
+  private JenkinsApiUserRetriever apiUserRetriever;
   private FetchInstalledPluginsCommandHandler handler;
 
   @Test
@@ -25,6 +28,10 @@ public class FetchInstalledPluginsCommandHandlerTest {
 
   @Before
   public void setUp() {
-    handler = new FetchInstalledPluginsCommandHandler();
+    // Mock the API user retriever
+    apiUserRetriever = mock(JenkinsApiUserRetriever.class);
+
+    // Create the command handler
+    handler = new FetchInstalledPluginsCommandHandler(apiUserRetriever);
   }
 }

@@ -1,6 +1,7 @@
 package com.xellitix.jenkins.plugintool.authentication;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 /**
  * Jenkins authentication module.
@@ -15,6 +16,11 @@ public class JenkinsAuthenticationModule extends AbstractModule {
   @Override
   protected void configure() {
     // Jenkins API token retriever
-    bind(JenkinsApiTokenRetriever.class).to(DefaultJenkinsApiTokenRetriever.class);
+    bind(JenkinsApiUserRetriever.class).to(DefaultJenkinsApiUserRetriever.class);
+
+    // JenkinsApiUser factory
+    install(new FactoryModuleBuilder()
+        .implement(JenkinsApiUser.class, DefaultJenkinsApiUser.class)
+        .build(JenkinsApiUserFactory.class));
   }
 }

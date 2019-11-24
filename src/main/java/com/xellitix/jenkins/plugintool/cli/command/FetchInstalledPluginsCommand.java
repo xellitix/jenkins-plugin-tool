@@ -2,6 +2,7 @@ package com.xellitix.jenkins.plugintool.cli.command;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.xellitix.jenkins.plugintool.authentication.JenkinsApiUser;
 import java.net.URI;
 import java.util.Optional;
 
@@ -23,11 +24,10 @@ public class FetchInstalledPluginsCommand implements Command {
       required = true)
   private URI jenkinsEndpoint;
 
-  // Properties
   @Parameter(
-      names = "--api-token",
+      names = "--jenkins-credentials",
       description = "The API token used to authenticate to jenkins")
-  private String apiToken;
+  private JenkinsApiUser jenkinsApiUser;
 
   /**
    * Gets the Jenkins endpoint.
@@ -49,11 +49,11 @@ public class FetchInstalledPluginsCommand implements Command {
   }
 
   /**
-   * Gets the API token.
+   * Gets the {@link JenkinsApiUser}.
    *
-   * @return The API token.
+   * @return The {@link JenkinsApiUser}.
    */
-  public Optional<String> getApiToken() {
-    return Optional.ofNullable(apiToken);
+  public Optional<JenkinsApiUser> getJenkinsApiUser() {
+    return Optional.ofNullable(jenkinsApiUser);
   }
 }

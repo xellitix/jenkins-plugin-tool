@@ -3,7 +3,7 @@ package com.xellitix.jenkins.plugintool.api.pluginmanager;
 import static org.mockito.Mockito.mock;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.xellitix.jenkins.plugintool.api.auth.JenkinsApiUser;
+import com.xellitix.jenkins.plugintool.authentication.JenkinsApiUser;
 import java.net.URI;
 import org.junit.Before;
 import org.junit.Test;

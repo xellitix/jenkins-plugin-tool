@@ -8,12 +8,16 @@ import java.util.Arrays;
  * {@link PluginListOutputFormat} converter.
  *
  * <p>
- * used to parse a {@link PluginListOutputFormat} specified by the user.
+ * Used to parse a {@link PluginListOutputFormat} specified by the user.
  * </p>
  *
  * @author Garrett Ewens
  */
-public class PluginListOutputFormatConverter implements ParameterConverter<PluginListOutputFormat> {
+public class PluginListOutputFormatConverter
+    implements ParameterConverter<PluginListOutputFormat> {
+
+  // Constants
+  private static final String INVALID_FORMAT_MSG = "Invalid output format given";
 
   /**
    * Creates a {@link PluginListOutputFormat} from a {@link String}.
@@ -32,7 +36,7 @@ public class PluginListOutputFormatConverter implements ParameterConverter<Plugi
             .equals(format.toLowerCase()))
         .findFirst()
         .orElseThrow(() ->
-            new ParameterConversionException(new IllegalArgumentException("Invalid output format given.")));
+            new ParameterConversionException(INVALID_FORMAT_MSG));
   }
 
   /**

@@ -1,4 +1,4 @@
-package com.xellitix.jenkins.plugintool.api.auth;
+package com.xellitix.jenkins.plugintool.authentication;
 
 /**
  * Jenkins API user credentials.

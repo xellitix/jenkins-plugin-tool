@@ -27,6 +27,10 @@ public class OutputModule extends AbstractModule {
         .addBinding()
         .to(JsonPluginListOutputWriter.class);
 
+    pluginListOutputWriterMultibinder
+        .addBinding()
+        .to(YamlPluginListOutputWriter.class);
+
     // Plugin list output writer locator
     bind(PluginListOutputWriterLocator.class)
         .to(DefaultPluginListOutputWriterLocator.class);

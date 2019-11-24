@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 import com.xellitix.jenkins.plugintool.authentication.JenkinsApiUser;
+import com.xellitix.jenkins.plugintool.output.PluginListOutputFormat;
 import java.lang.reflect.Field;
 import java.net.URI;
 
@@ -44,12 +45,32 @@ public class FetchInstalledPluginsCommandTest {
   }
 
   @Test
-  public void getJenkinsApiUserTest__Test() {
+  public void getJenkinsApiUser__Test() {
     assertThat(command
         .getJenkinsApiUser())
         .isPresent()
         .get()
         .isEqualTo(apiUser);
+  }
+
+  @Test
+  public void getOutputFormat__ReturnsConfiguredFormat__WhenFormatIsConfigured__Test() throws Exception {
+    // Prepare the test
+    setPrivateProperty(command, "outputFormat", PluginListOutputFormat.YAML);
+
+    // Get the output format
+    assertThat(command
+        .getOutputFormat())
+        .isNotNull()
+        .isEqualTo(PluginListOutputFormat.YAML);
+  }
+
+  @Test
+  public void getOutputFormat__ReturnsDefaultFormat__WhenFormatIsNotConfigured__Test() {
+    assertThat(command
+        .getOutputFormat())
+        .isNotNull()
+        .isEqualTo(PluginListOutputFormat.JENKINS);
   }
 
   @Before

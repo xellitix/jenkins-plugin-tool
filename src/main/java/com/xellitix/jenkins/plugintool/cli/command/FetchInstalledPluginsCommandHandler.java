@@ -1,7 +1,14 @@
 package com.xellitix.jenkins.plugintool.cli.command;
 
+import com.xellitix.jenkins.plugintool.api.pluginmanager.GetInstalledPluginsRequest;
+import com.xellitix.jenkins.plugintool.api.pluginmanager.GetInstalledPluginsRequestExecutor;
+import com.xellitix.jenkins.plugintool.api.pluginmanager.GetInstalledPluginsRequestFactory;
 import com.xellitix.jenkins.plugintool.authentication.JenkinsApiUser;
 import com.xellitix.jenkins.plugintool.authentication.JenkinsApiUserRetriever;
+import com.xellitix.jenkins.plugintool.output.PluginListOutputWriter;
+import com.xellitix.jenkins.plugintool.output.PluginListOutputWriterLocator;
+import com.xellitix.jenkins.plugintool.plugin.Plugin;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -14,15 +21,29 @@ public class FetchInstalledPluginsCommandHandler
 
   // Dependencies
   private final JenkinsApiUserRetriever apiUserRetriever;
+  private final GetInstalledPluginsRequestFactory requestFactory;
+  private final GetInstalledPluginsRequestExecutor requestExecutor;
+  private final PluginListOutputWriterLocator outputWriterLocator;
 
   /**
    * Constructor.
    *
    * @param apiUserRetriever The {@link JenkinsApiUserRetriever}.
+   * @param requestFactory The {@link GetInstalledPluginsRequestFactory}.
+   * @param requestExecutor The {@link GetInstalledPluginsRequestExecutor}.
+   * @param outputWriterLocator The {@link PluginListOutputWriterLocator}.
    */
   @Inject
-  FetchInstalledPluginsCommandHandler(final JenkinsApiUserRetriever apiUserRetriever) {
+  FetchInstalledPluginsCommandHandler(
+      final JenkinsApiUserRetriever apiUserRetriever,
+      final GetInstalledPluginsRequestFactory requestFactory,
+      final GetInstalledPluginsRequestExecutor requestExecutor,
+      final PluginListOutputWriterLocator outputWriterLocator) {
+
     this.apiUserRetriever = apiUserRetriever;
+    this.requestFactory = requestFactory;
+    this.requestExecutor = requestExecutor;
+    this.outputWriterLocator = outputWriterLocator;
   }
 
   /**
@@ -45,10 +66,18 @@ public class FetchInstalledPluginsCommandHandler
     // Get the API authentication credentials
     final JenkinsApiUser apiUser = apiUserRetriever.get(command);
 
-    System.out.printf(
-        "Fetch installed plugins on remote Jenkins instance %s. Authenticate as %s using %s",
-        command.getJenkinsEndpoint().toASCIIString(),
-        apiUser.getUsername(),
-        apiUser.getApiToken());
+    // Create the action request
+    final GetInstalledPluginsRequest request =
+        requestFactory.create(command.getJenkinsEndpoint(), apiUser);
+
+    // Get the installed plugins
+    final List<Plugin> plugins = requestExecutor.execute(request);
+
+    // Get the output writer
+    final PluginListOutputWriter outputWriter =
+        outputWriterLocator.locate(command.getOutputFormat());
+
+    // Write the output
+    outputWriter.write(plugins, System.out);
   }
 }

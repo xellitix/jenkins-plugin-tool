@@ -32,7 +32,6 @@ public class JenkinsPluginListOutputWriter implements PluginListOutputWriter {
   @Override
   public void write(final List<Plugin> plugins, final PrintStream output) {
     plugins.forEach(value ->
-      output.println(value.getName() + ":" + value.getVersion())
-    );
+        output.println(value.getName() + ":" + value.getVersion()));
   }
 }

@@ -11,7 +11,7 @@ import com.beust.jcommander.Parameters;
 public class HelpCommand implements Command {
 
   // Constants
-  private static final String NAME = "help";
+  private static final String COMMAND_NAME = "help";
 
   /**
    * Gets the name.
@@ -20,6 +20,6 @@ public class HelpCommand implements Command {
    */
   @Override
   public String getName() {
-    return NAME;
+    return COMMAND_NAME;
   }
 }

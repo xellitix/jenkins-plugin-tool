@@ -49,4 +49,14 @@ public class DefaultPlugin implements Plugin {
   public String getVersion() {
     return version;
   }
+
+  /**
+   * Gets the {@link String} representation.
+   *
+   * @return The {@link String} representation.
+   */
+  @Override
+  public String toString() {
+    return String.format("[Plugin NAME: \"%s\", VERSION: \"%s\"]", name, version);
+  }
 }

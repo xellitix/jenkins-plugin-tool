@@ -39,6 +39,11 @@ public class FetchInstalledPluginsCommand implements Command {
       description = "The output format. Valid formats: JENKINS, JSON, YAML")
   private PluginListOutputFormat outputFormat;
 
+  @Parameter(
+      names = "--latest-releases",
+      description = "Get the latest release of each plugin")
+  private Boolean latestReleases = false;
+
   /**
    * Gets the Jenkins endpoint.
    *
@@ -78,5 +83,14 @@ public class FetchInstalledPluginsCommand implements Command {
     }
 
     return outputFormat;
+  }
+
+  /**
+   * Determines if we should get the latest release of plugins.
+   *
+   * @return True if we should get the latest release of plugins.
+   */
+  public boolean isGetLatestReleasesEnabled() {
+    return latestReleases;
   }
 }

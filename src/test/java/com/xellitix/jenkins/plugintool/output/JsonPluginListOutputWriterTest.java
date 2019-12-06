@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
+import com.xellitix.jenkins.plugintool.plugin.DefaultPlugin;
 import com.xellitix.jenkins.plugintool.plugin.Plugin;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -92,29 +93,8 @@ public class JsonPluginListOutputWriterTest {
     outputStream = new PrintStream(outputStreamData);
 
     // Create the plugins
-    Plugin pluginOne = new Plugin() {
-      @Override
-      public String getName() {
-        return PLUGIN_ONE_NAME;
-      }
-
-      @Override
-      public String getVersion() {
-        return PLUGIN_ONE_VERSION;
-      }
-    };
-
-    Plugin pluginTwo = new Plugin() {
-      @Override
-      public String getName() {
-        return PLUGIN_TWO_NAME;
-      }
-
-      @Override
-      public String getVersion() {
-        return PLUGIN_TWO_VERSION;
-      }
-    };
+    Plugin pluginOne = new DefaultPlugin(PLUGIN_ONE_NAME, PLUGIN_ONE_VERSION);
+    Plugin pluginTwo = new DefaultPlugin(PLUGIN_TWO_NAME, PLUGIN_TWO_VERSION);
 
     plugins = ImmutableList.of(pluginOne, pluginTwo);
   }

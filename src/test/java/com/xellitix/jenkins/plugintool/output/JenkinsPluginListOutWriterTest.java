@@ -1,6 +1,7 @@
 package com.xellitix.jenkins.plugintool.output;
 
 import com.google.common.collect.ImmutableList;
+import com.xellitix.jenkins.plugintool.plugin.DefaultPlugin;
 import com.xellitix.jenkins.plugintool.plugin.Plugin;
 import org.junit.Before;
 import org.junit.Rule;
@@ -61,29 +62,8 @@ public class JenkinsPluginListOutWriterTest {
     outputWriter = new JenkinsPluginListOutputWriter();
 
     // Create the plugins
-    Plugin pluginOne = new Plugin() {
-      @Override
-      public String getName() {
-        return PLUGIN_ONE_NAME;
-      }
-
-      @Override
-      public String getVersion() {
-        return PLUGIN_ONE_VERSION;
-      }
-    };
-
-    Plugin pluginTwo = new Plugin() {
-      @Override
-      public String getName() {
-        return PLUGIN_TWO_NAME;
-      }
-
-      @Override
-      public String getVersion() {
-        return PLUGIN_TWO_VERSION;
-      }
-    };
+    Plugin pluginOne = new DefaultPlugin(PLUGIN_ONE_NAME, PLUGIN_ONE_VERSION);
+    Plugin pluginTwo = new DefaultPlugin(PLUGIN_TWO_NAME, PLUGIN_TWO_VERSION);
 
     plugins = ImmutableList.of(pluginOne, pluginTwo);
   }

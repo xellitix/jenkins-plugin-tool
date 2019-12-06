@@ -12,6 +12,7 @@ import com.xellitix.jenkins.plugintool.updatecenter.UpdateCenter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.inject.Inject;
 
 /**
@@ -78,17 +79,22 @@ public class FetchInstalledPluginsCommandHandler
         requestFactory.create(command.getJenkinsEndpoint(), apiUser);
 
     // Get the installed plugins
-    List<Plugin> plugins = requestExecutor.execute(request);
+    Stream<Plugin> pluginStream = requestExecutor
+        .execute(request)
+        .stream();
 
-    // Update the plugins
+    // Update the plugins if requested
     if (command.isGetLatestReleasesEnabled()) {
-      plugins = plugins
-          .stream()
+      pluginStream = pluginStream
           .map(updateCenter::getLatestRelease)
           .filter(Optional::isPresent)
-          .map(Optional::get)
-          .collect(Collectors.toList());
+          .map(Optional::get);
     }
+
+    // Sort the plugins lexicographically by name
+    final List<Plugin> plugins = pluginStream
+        .sorted()
+        .collect(Collectors.toList());
 
     // Get the output writer
     final PluginListOutputWriter outputWriter =

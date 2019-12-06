@@ -6,6 +6,7 @@ import com.xellitix.commons.net.compat.java.uri.UriFactory;
 import com.xellitix.jenkins.plugintool.http.HttpGetFactory;
 import com.xellitix.jenkins.plugintool.plugin.Plugin;
 import com.xellitix.jenkins.plugintool.plugin.PluginFactory;
+import com.xellitix.jenkins.plugintool.system.SystemProxy;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,7 +28,9 @@ import org.apache.http.client.methods.HttpGet;
 public class DefaultUpdateCenter implements UpdateCenter {
 
   // Constants
-  private static final String UPDATE_CENTER_URI =
+  private static final String UPDATE_CENTER_ENDPOINT_ENV_VAR =
+      "UPDATE_CENTER_ENDPOINT";
+  private static final String DEFAULT_UPDATE_CENTER_ENDPOINT =
       "https://updates.jenkins.io/current/update-center.actual.json";
 
   // Properties
@@ -39,6 +42,7 @@ public class DefaultUpdateCenter implements UpdateCenter {
   private final HttpGetFactory httpGetFactory;
   private final ObjectMapper objectMapper;
   private final PluginFactory pluginFactory;
+  private final SystemProxy system;
 
   /**
    * Constructor.
@@ -48,6 +52,7 @@ public class DefaultUpdateCenter implements UpdateCenter {
    * @param httpGetFactory The {@link HttpGetFactory}.
    * @param objectMapper The {@link ObjectMapper}.
    * @param pluginFactory The {@link PluginFactory}.
+   * @param system The {@link SystemProxy}.
    */
   @Inject
   DefaultUpdateCenter(
@@ -55,13 +60,15 @@ public class DefaultUpdateCenter implements UpdateCenter {
       final HttpClient httpClient,
       final HttpGetFactory httpGetFactory,
       final ObjectMapper objectMapper,
-      final PluginFactory pluginFactory) {
+      final PluginFactory pluginFactory,
+      final SystemProxy system) {
 
     this.uriFactory = uriFactory;
     this.httpClient = httpClient;
     this.httpGetFactory = httpGetFactory;
     this.objectMapper = objectMapper;
     this.pluginFactory = pluginFactory;
+    this.system = system;
   }
 
   /**
@@ -93,13 +100,8 @@ public class DefaultUpdateCenter implements UpdateCenter {
   }
 
   private void loadData() {
-    // Create the update center URI
-    final URI updateCenterUri;
-    try {
-      updateCenterUri = uriFactory.create(UPDATE_CENTER_URI);
-    } catch (URISyntaxException ex) {
-      throw new UpdateCenterException(ex);
-    }
+    // Get update center URI
+    final URI updateCenterUri = getUpdateCenterEndpoint();
 
     // Create the request
     final HttpGet request = httpGetFactory.create(updateCenterUri);
@@ -139,6 +141,23 @@ public class DefaultUpdateCenter implements UpdateCenter {
 
       final Plugin plugin = pluginFactory.create(name, version);
       latestReleases.put(name, plugin);
+    }
+  }
+
+  private URI getUpdateCenterEndpoint() {
+    // Get the endpoint as configured by an environment variable
+    String endpoint = system.getEnv(UPDATE_CENTER_ENDPOINT_ENV_VAR);
+
+    // Use the default value if the endpoint was not configured
+    if (endpoint == null) {
+      endpoint = DEFAULT_UPDATE_CENTER_ENDPOINT;
+    }
+
+    // Create the URI
+    try {
+      return uriFactory.create(endpoint);
+    } catch (URISyntaxException ex) {
+      throw new UpdateCenterException(ex);
     }
   }
 }

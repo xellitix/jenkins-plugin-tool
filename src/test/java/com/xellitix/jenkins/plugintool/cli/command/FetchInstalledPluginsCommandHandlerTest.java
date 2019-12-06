@@ -17,6 +17,7 @@ import com.xellitix.jenkins.plugintool.output.PluginListOutputFormat;
 import com.xellitix.jenkins.plugintool.output.PluginListOutputWriter;
 import com.xellitix.jenkins.plugintool.output.PluginListOutputWriterLocator;
 import com.xellitix.jenkins.plugintool.plugin.Plugin;
+import com.xellitix.jenkins.plugintool.updatecenter.UpdateCenter;
 import java.io.PrintStream;
 import java.net.URI;
 import java.util.List;
@@ -117,6 +118,6 @@ public class FetchInstalledPluginsCommandHandlerTest {
 
     // Create the command handler
     commandHandler = new FetchInstalledPluginsCommandHandler(
-        apiUserRetriever, requestFactory, requestExecutor, outputWriterLocator);
+        apiUserRetriever, requestFactory, requestExecutor, outputWriterLocator, mock(UpdateCenter.class));
   }
 }

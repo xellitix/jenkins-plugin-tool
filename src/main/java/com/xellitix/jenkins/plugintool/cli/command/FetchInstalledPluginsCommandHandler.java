@@ -8,7 +8,10 @@ import com.xellitix.jenkins.plugintool.authentication.JenkinsApiUserRetriever;
 import com.xellitix.jenkins.plugintool.output.PluginListOutputWriter;
 import com.xellitix.jenkins.plugintool.output.PluginListOutputWriterLocator;
 import com.xellitix.jenkins.plugintool.plugin.Plugin;
+import com.xellitix.jenkins.plugintool.updatecenter.UpdateCenter;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 /**
@@ -24,6 +27,7 @@ public class FetchInstalledPluginsCommandHandler
   private final GetInstalledPluginsRequestFactory requestFactory;
   private final GetInstalledPluginsRequestExecutor requestExecutor;
   private final PluginListOutputWriterLocator outputWriterLocator;
+  private final UpdateCenter updateCenter;
 
   /**
    * Constructor.
@@ -32,18 +36,21 @@ public class FetchInstalledPluginsCommandHandler
    * @param requestFactory The {@link GetInstalledPluginsRequestFactory}.
    * @param requestExecutor The {@link GetInstalledPluginsRequestExecutor}.
    * @param outputWriterLocator The {@link PluginListOutputWriterLocator}.
+   * @param updateCenter The {@link UpdateCenter}.
    */
   @Inject
   FetchInstalledPluginsCommandHandler(
       final JenkinsApiUserRetriever apiUserRetriever,
       final GetInstalledPluginsRequestFactory requestFactory,
       final GetInstalledPluginsRequestExecutor requestExecutor,
-      final PluginListOutputWriterLocator outputWriterLocator) {
+      final PluginListOutputWriterLocator outputWriterLocator,
+      final UpdateCenter updateCenter) {
 
     this.apiUserRetriever = apiUserRetriever;
     this.requestFactory = requestFactory;
     this.requestExecutor = requestExecutor;
     this.outputWriterLocator = outputWriterLocator;
+    this.updateCenter = updateCenter;
   }
 
   /**
@@ -71,7 +78,17 @@ public class FetchInstalledPluginsCommandHandler
         requestFactory.create(command.getJenkinsEndpoint(), apiUser);
 
     // Get the installed plugins
-    final List<Plugin> plugins = requestExecutor.execute(request);
+    List<Plugin> plugins = requestExecutor.execute(request);
+
+    // Update the plugins
+    if (command.isGetLatestReleasesEnabled()) {
+      plugins = plugins
+          .stream()
+          .map(updateCenter::getLatestRelease)
+          .filter(Optional::isPresent)
+          .map(Optional::get)
+          .collect(Collectors.toList());
+    }
 
     // Get the output writer
     final PluginListOutputWriter outputWriter =

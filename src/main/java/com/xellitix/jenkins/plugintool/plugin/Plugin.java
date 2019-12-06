@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * @author Garrett Ewens
  */
 @JsonPropertyOrder({ "name", "version" })
-public interface Plugin {
+public interface Plugin extends Comparable<Plugin> {
 
   /**
    * Gets the plugin name.

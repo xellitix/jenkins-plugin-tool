@@ -22,7 +22,7 @@ public class DefaultPlugin implements Plugin {
    * @param version The plugin version.
    */
   @Inject
-  DefaultPlugin(
+  public DefaultPlugin(
       @Assisted("name") String name,
       @Assisted("version") String version) {
 
@@ -58,5 +58,18 @@ public class DefaultPlugin implements Plugin {
   @Override
   public String toString() {
     return String.format("[Plugin NAME: \"%s\", VERSION: \"%s\"]", name, version);
+  }
+
+  /**
+   * Compare to another {@link Plugin} based on
+   *     lexicographical comparison of the {@link Plugin} names.
+   *
+   * @param other The other {@link Plugin}.
+   * @return -1, 0, or 1 if this {@link Plugin} is less than, equal to, or greater than the other
+   *     {@link Plugin} based on lexicographical comparison of the {@link Plugin} names.
+   */
+  @Override
+  public int compareTo(final Plugin other) {
+    return name.compareTo(other.getName());
   }
 }

@@ -13,8 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DefaultPluginTest {
 
   // Constants
-  private static final String NAME = "name";
-  private static final String VERSION = "version";
+  private static final String NAME = "cool-plugin";
+  private static final String VERSION = "1.0.2";
+  private static final String EXPECTED_STRING_REPRESENTATION =
+      "[Plugin NAME: \"cool-plugin\", VERSION: \"1.0.2\"]";
 
   // Fixtures
   private DefaultPlugin plugin;
@@ -35,8 +37,16 @@ public class DefaultPluginTest {
         .isEqualTo(VERSION);
   }
 
+  @Test
+  public void toString__Test() {
+    assertThat(plugin
+        .toString())
+        .isNotNull()
+        .isEqualTo(EXPECTED_STRING_REPRESENTATION);
+  }
+
   @Before
   public void setup() {
-    plugin = new DefaultPlugin("name", "version");
+    plugin = new DefaultPlugin(NAME, VERSION);
   }
 }
